@@ -1,5 +1,8 @@
+# cordova
 .DS_Store
 node_modules
 platforms
 plugins
 
+# dev
+compile
