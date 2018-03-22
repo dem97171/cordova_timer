@@ -3,7 +3,7 @@ var async = require('async');
 var gulp = require("gulp");
 var plumber = require("gulp-plumber");
 var sass = require("gulp-sass");
-// var autoprefixer = require("gulp-autoprefixer");
+var autoprefixer = require("gulp-autoprefixer");
 var concat = require("gulp-concat");
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
@@ -53,7 +53,7 @@ gulp.task('sass', ['scssConcat'], function() {
     gulp.src(compileDirScss + "/*.scss")
         .pipe(plumber())
         .pipe(sass())
-        // .pipe(autoprefixer())
+        .pipe(autoprefixer())
         .pipe(gulp.dest(dstDirCss))
         .pipe(uglifycss({
             "uglyComments": false
