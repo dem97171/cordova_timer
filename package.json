@@ -28,6 +28,7 @@
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-es2017": "^6.24.1",
     "browserify": "^16.1.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",

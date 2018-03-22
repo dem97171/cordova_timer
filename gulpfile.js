@@ -20,10 +20,15 @@ var stripDebug = require('gulp-strip-debug');
 // babel
 var babel = require("gulp-babel");
 
+// src dir
 var srcDirJs = 'src/m';
 var srcDirScss = 'src/scss';
+
+// compile dir
 var compileDirJs = 'compile/m';
 var compileDirScss = 'compile/scss';
+
+// dest dir
 var dstDir = 'www';
 var dstDirJs = dstDir + '/js';
 var dstDirCss = dstDir + '/css';
@@ -34,13 +39,13 @@ gulp.task('scssConcat', function() {
     return gulp.src([
         // srcDirScss + '/*scss',
         srcDirScss + '/vendor/*css',
-        srcDirScss + '/setting/*scss',
-        srcDirScss + '/tool/*scss',
-        srcDirScss + '/base/*scss',
-        srcDirScss + '/layout/*scss',
-        srcDirScss + '/module/*scss',
-        srcDirScss + '/state/*scss',
-        srcDirScss + '/theme/*scss'
+        srcDirScss + '/setting/*css',
+        srcDirScss + '/tool/*css',
+        srcDirScss + '/base/*css',
+        srcDirScss + '/layout/*css',
+        srcDirScss + '/module/*css',
+        srcDirScss + '/state/*css',
+        srcDirScss + '/theme/*css'
     ])
     .pipe( plumber() )
     .pipe( concat('style.scss') )
@@ -53,7 +58,6 @@ gulp.task('sass', ['scssConcat'], function() {
         .pipe(sass())
         // .pipe(autoprefixer())
         .pipe(gulp.dest(dstDirCss))
-        .pipe( gulp.dest(templates + "/css") )
         .pipe(uglifycss({
             "uglyComments": false
         }))
@@ -101,9 +105,9 @@ gulp.task("browserify", ['jsx'], function(){
         }))
         .pipe(gulp.dest( dstDirJs ))
     },function(err){
-        if(err){
-            throw err;
-        }
+        // if(err){
+        //     throw err;
+        // }
 
         console.log( "end browserify" );
         // electron.reload();
@@ -120,10 +124,10 @@ gulp.task("mithrilCompile", ['browserify'], function(){
 
 
 // browser sync
-gulp.task("server", function() {
-    // Start browser process
-    electron.start();
-});
+// gulp.task("server", function() {
+//     // Start browser process
+//     electron.start();
+// });
 
 
 // ファイルの編集を監視してjavascript,cssの更新を実行
@@ -142,15 +146,15 @@ gulp.task("watch", function() {
     gulp.watch(csstargets, ["sass"]);
 
     // electron reload
-    gulp.watch([
-        dstDirJs + '/*.js',
-        dstDirCss + '/*.css'
-    ],electron.reload);
+    // gulp.watch([
+    //     dstDirJs + '/*.js',
+    //     dstDirCss + '/*.css'
+    // ],electron.reload);
 });
 
 
 // main build
-gulp.task("default", ["server","watch"]);
+gulp.task("default", ["watch"]);
 
 // style guide
 // gulp.task("genGuide",function() {

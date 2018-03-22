@@ -12,3 +12,6 @@ git lfsを使用。
 `$ cordova run android --live-reload` を実行。
 
 chomeを開いて`chrome://inspect/#devices`にアクセス。
+
+### jsとcssの編集
+`$ gulp`
