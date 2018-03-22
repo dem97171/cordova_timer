@@ -1,55 +1,55 @@
-'use strict';
-var async = require('async');
-var gulp = require("gulp");
-var plumber = require("gulp-plumber");
-var sass = require("gulp-sass");
-var autoprefixer = require("gulp-autoprefixer");
-var concat = require("gulp-concat");
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var uglify = require('gulp-uglify');
-var uglifycss = require('gulp-uglifycss');
-var rename = require('gulp-rename');
-var debug = require('gulp-debug');
-var stripDebug = require('gulp-strip-debug');
+"use strict";
+const async = require("async");
+const gulp = require("gulp");
+const plumber = require("gulp-plumber");
+const sass = require("gulp-sass");
+const autoprefixer = require("gulp-autoprefixer");
+const concat = require("gulp-concat");
+const browserify = require("browserify");
+const source = require("vinyl-source-stream");
+const buffer = require("vinyl-buffer");
+const uglify = require("gulp-uglify");
+const uglifycss = require("gulp-uglifycss");
+const rename = require("gulp-rename");
+// const debug = require("gulp-debug");
+const stripDebug = require("gulp-strip-debug");
 
 // babel
-var babel = require("gulp-babel");
+const babel = require("gulp-babel");
 
 // src dir
-var srcDirJs = 'src/m';
-var srcDirScss = 'src/scss';
+const srcDirJs = "src/m";
+const srcDirScss = "src/scss";
 
 // compile dir
-var compileDirJs = 'compile/m';
-var compileDirScss = 'compile/scss';
+const compileDirJs = "compile/m";
+const compileDirScss = "compile/scss";
 
 // dest dir
-var dstDir = 'www';
-var dstDirJs = dstDir + '/js';
-var dstDirCss = dstDir + '/css';
+const dstDir = "www";
+const dstDirJs = dstDir + "/js";
+const dstDirCss = dstDir + "/css";
 
 
 // css
-gulp.task('scssConcat', function() {
+gulp.task("scssConcat", function() {
     return gulp.src([
-        // srcDirScss + '/*scss',
-        srcDirScss + '/vendor/*css',
-        srcDirScss + '/setting/*css',
-        srcDirScss + '/tool/*css',
-        srcDirScss + '/base/*css',
-        srcDirScss + '/layout/*css',
-        srcDirScss + '/module/*css',
-        srcDirScss + '/state/*css',
-        srcDirScss + '/theme/*css'
+        // srcDirScss + "/*scss",
+        srcDirScss + "/vendor/*css",
+        srcDirScss + "/setting/*css",
+        srcDirScss + "/tool/*css",
+        srcDirScss + "/base/*css",
+        srcDirScss + "/layout/*css",
+        srcDirScss + "/module/*css",
+        srcDirScss + "/state/*css",
+        srcDirScss + "/theme/*css"
     ])
-    .pipe( plumber() )
-    .pipe( concat('style.scss') )
-    .pipe( gulp.dest( compileDirScss ) );
+        .pipe( plumber() )
+        .pipe( concat("style.scss") )
+        .pipe( gulp.dest( compileDirScss ) );
 });
 
-gulp.task('sass', ['scssConcat'], function() {
+gulp.task("sass", ["scssConcat"], function() {
     gulp.src(compileDirScss + "/*.scss")
         .pipe(plumber())
         .pipe(sass())
@@ -59,48 +59,48 @@ gulp.task('sass', ['scssConcat'], function() {
             "uglyComments": false
         }))
         .pipe(rename({
-            extname: '.min.css'
+            extname: ".min.css"
         }))
-        .pipe(gulp.dest(dstDirCss))
+        .pipe(gulp.dest(dstDirCss));
 });
 
 // compile mithril jsx
-gulp.task('jsx', function() {
+gulp.task("jsx", function() {
     return gulp.src([
-        srcDirJs + '/**/**/*.js',
-        srcDirJs + '/**/*.js',
-        srcDirJs + '/*.js'
+        srcDirJs + "/**/**/*.js",
+        srcDirJs + "/**/*.js",
+        srcDirJs + "/*.js"
     ])
-    .pipe(plumber())
-    .pipe(babel({
-        presets: ['env']
-    }))
-    .pipe(gulp.dest( compileDirJs ));
+        .pipe(plumber())
+        .pipe(babel({
+            presets: ["env"]
+        }))
+        .pipe(gulp.dest( compileDirJs ));
 });
 
-gulp.task("browserify", ['jsx'], function(){
+gulp.task("browserify", ["jsx"], function(){
     console.log( "start browserify" );
     // browserify
-    var entryTargets = [
+    const entryTargets = [
         {
             srcPath: compileDirJs + "/entries/app.js",
-            dstFileName: 'app.js'
+            dstFileName: "app.js"
         }
     ];
-    async.each( entryTargets, function( entrypoint, callback ){
+    async.each( entryTargets, function( entrypoint ){
         console.log( "browserify loop : " + entrypoint.srcPath );
         browserify({ entries: [ entrypoint.srcPath ] })
-        .bundle()
-        .pipe(source( entrypoint.dstFileName ))
-        .pipe(buffer())
-        // .pipe(uglify())
-        .pipe(gulp.dest( dstDirJs ))
-        .pipe(uglify())
-        .pipe(stripDebug())
-        .pipe(rename({
-            extname: '.min.js'
-        }))
-        .pipe(gulp.dest( dstDirJs ))
+            .bundle()
+            .pipe(source( entrypoint.dstFileName ))
+            .pipe(buffer())
+            // .pipe(uglify())
+            .pipe(gulp.dest( dstDirJs ))
+            .pipe(uglify())
+            .pipe(stripDebug())
+            .pipe(rename({
+                extname: ".min.js"
+            }))
+            .pipe(gulp.dest( dstDirJs ));
     },function(err){
         if(err){
             throw err;
@@ -109,23 +109,23 @@ gulp.task("browserify", ['jsx'], function(){
         console.log( "end browserify" );
         return true;
     });
-})
+});
 
-gulp.task("mithrilCompile", ['browserify'], function(){
-})
+gulp.task("mithrilCompile", ["browserify"], function(){
+});
 
 // ファイルの編集を監視してjavascript,cssの更新を実行
 gulp.task("watch", function() {
-    var jstargets = [
-        srcDirJs + '/*.js',
-        srcDirJs + '/**/*.js',
-        srcDirJs + '/**/**/*.js'
+    const jstargets = [
+        srcDirJs + "/*.js",
+        srcDirJs + "/**/*.js",
+        srcDirJs + "/**/**/*.js"
     ];
     gulp.watch(jstargets, ["mithrilCompile"]);
 
-    var csstargets = [
-        // srcDirScss + '/*.scss',
-        srcDirScss + '/**/*.scss'
+    const csstargets = [
+        // srcDirScss + "/*.scss",
+        srcDirScss + "/**/*.scss"
     ];
     gulp.watch(csstargets, ["sass"]);
 });

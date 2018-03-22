@@ -1,0 +1,40 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "no-console": 0,
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        // const or let を強制
+        "no-var": 2,
+        // 再代入がない限り const を強制
+        "prefer-const": 2,
+        // カンマ位置は末尾に強制
+        "comma-style": [2, "last"],
+        // カンマ前後のスペースを許可（垂直方向に統一されたインデントを得るため）
+        "comma-spacing": 0
+    }
+}
