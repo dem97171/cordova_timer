@@ -8,9 +8,6 @@ var concat = require("gulp-concat");
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
-// var frontnote = require("gulp-frontnote");
-// var jsx = require("gulp-jsx");
-// var browser = require("browser-sync").create();  //live reload
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var rename = require('gulp-rename');
@@ -54,7 +51,7 @@ gulp.task('scssConcat', function() {
 
 gulp.task('sass', ['scssConcat'], function() {
     gulp.src(compileDirScss + "/*.scss")
-        // .pipe(plumber())
+        .pipe(plumber())
         .pipe(sass())
         // .pipe(autoprefixer())
         .pipe(gulp.dest(dstDirCss))
@@ -105,30 +102,17 @@ gulp.task("browserify", ['jsx'], function(){
         }))
         .pipe(gulp.dest( dstDirJs ))
     },function(err){
-        // if(err){
-        //     throw err;
-        // }
+        if(err){
+            throw err;
+        }
 
         console.log( "end browserify" );
-        // electron.reload();
         return true;
     });
 })
 
 gulp.task("mithrilCompile", ['browserify'], function(){
-    // setTimeout(function(){
-    //     // browser.reload();
-    //     electron.reload();
-    // } , 1000);
 })
-
-
-// browser sync
-// gulp.task("server", function() {
-//     // Start browser process
-//     electron.start();
-// });
-
 
 // ファイルの編集を監視してjavascript,cssの更新を実行
 gulp.task("watch", function() {
@@ -144,73 +128,7 @@ gulp.task("watch", function() {
         srcDirScss + '/**/*.scss'
     ];
     gulp.watch(csstargets, ["sass"]);
-
-    // electron reload
-    // gulp.watch([
-    //     dstDirJs + '/*.js',
-    //     dstDirCss + '/*.css'
-    // ],electron.reload);
 });
-
 
 // main build
 gulp.task("default", ["watch"]);
-
-// style guide
-// gulp.task("genGuide",function() {
-//     return gulp.src([
-//         // srcDirScss + '/*.scss',
-//         srcDirScss + '/**/*.scss'
-//     ])
-//     .pipe(frontnote({
-//         // css: "css/style.css",
-//         cache: false,   // こっちはキャッシュの無効
-//         // clean: true,    // こっちで毎回削除→生成
-//         // verbose: true,
-//         // includeAssetPath: 'www/css/*'
-//     }))
-//     .pipe(debug({title: "debug:"}))
-// });
-
-
-// //frontnoteのスタイルガイドを作成してブラウザリロード
-// gulp.task("docs", ["genGuide","sass"],function() {
-
-//     // frontnoteでなぜか作成されないcssファイルをsassタスクのやつからコピー
-//     gulp.src([
-//         dstDirCss + "/*.css"
-//     ])
-//     .pipe(gulp.dest("guide"))
-//     .pipe(browser.reload({stream:true}))
-// });
-
-// gulp.task("reload", function(){
-//     browser.reload();
-// });
-
-// gulp.task("serverTemplate", function() {
-//     // Start browser process
-//     // electron.start();
-//     browser.init({
-//         server: {
-//             baseDir: templates,
-//             startPath: './index.html',
-//         }
-//     });
-// });
-
-// gulp.task("watchTemplate", function() {
-
-//     var csstargets = [
-//         // srcDirScss + '/*.scss',
-//         srcDirScss + '/**/*.scss'
-//     ];
-//     gulp.watch(csstargets,["sass"]);
-
-//     var templateTargets = [
-//         templates + '/*.html'
-//     ];
-//     gulp.watch( templateTargets, ["reload"] );
-// });
-
-// gulp.task("template", ["serverTemplate", "watchTemplate"]);
