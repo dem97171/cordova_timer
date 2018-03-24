@@ -8,10 +8,13 @@ git lfsを使用。
 ### デバッグ用のデバイスリスト一覧
 `$ adb devices`
 
-### android デバッグ
+### androidデバッグ
 `$ cordova run android --live-reload` を実行。
 
 chomeを開いて`chrome://inspect/#devices`にアクセス。
+
+### ブラウザデバッグ
+cordova run browser -- --live-reload
 
 ### jsとcssの編集
 `$ gulp`
