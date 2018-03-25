@@ -1,36 +1,67 @@
 (function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s}return e})()({1:[function(require,module,exports){
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function (event) {
+var m = m || require("mithril");
+var view = require("./indexView.js");
+
+var index = {};
+
+index.view = view;
+
+module.exports = index;
+},{"./indexView.js":2,"mithril":4}],2:[function(require,module,exports){
+"use strict";
+
+var m = m || require("mithril");
+
+var view = function view() {
+    console.log("index view defined.");
+    var content = m(
+        "div",
+        null,
+        "index content"
+    );
+    return content;
+};
+
+module.exports = view;
+},{"mithril":4}],3:[function(require,module,exports){
+"use strict";
+
+console.log("loaded app.js");
+
+window.onload = function () {
+    document.addEventListener("deviceready", onDeviceReady, false);
+};
+
+var onDeviceReady = function onDeviceReady() {
+    // Now safe to use device APIs
+    console.log("exec function onDeviceReady");
     // 初期処理
-    console.log("event: DOMContentLoaded");
     console.log(event);
 
     var m = m || require("mithril");
-    // require("../modules/common/entrypoint.js");
+    var indexComponent = require("../components/index/indexComponent.js");
     // var Main = Main || require("../modules/Main/entrypoint.js");
     // var AddParentCategory = AddParentCategory || require("../modules/AddParentCategory/entrypoint.js");
     // // require("../modules/helper/entrypoint.js");
 
     // m.route.mode = "search";
-
-    // m.route(
-    //     document.body,
-    //     "/",
-    //     {
-    //         "/": Main,
-    //         "/parent_category/add": AddParentCategory
-    //         // "/server": y.ServerList,
-    //         // "/StockPortfolio": y.StockPortfolio,
-    //         // "/server/add": y.ServerAdd
-    //     }
-    // );
+    setTimeout(function () {
+        m.route(document.body, "/", {
+            "/": indexComponent
+            //         "/parent_category/add": AddParentCategory
+            //         // "/server": y.ServerList,
+            //         // "/StockPortfolio": y.StockPortfolio,
+            //         // "/server/add": y.ServerAdd
+        });
+    }, 2000);
 
     // y.global.init();
 
     // document.body.addEventListener("click", y.Header.model.clearHeaderMenu ,false );
-});
-},{"mithril":2}],2:[function(require,module,exports){
+};
+},{"../components/index/indexComponent.js":1,"mithril":4}],4:[function(require,module,exports){
 (function (global){
 ;(function() {
 "use strict"
@@ -1290,4 +1321,4 @@ if (typeof module !== "undefined") module["exports"] = m
 else window.m = m
 }());
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[1]);
+},{}]},{},[3]);
