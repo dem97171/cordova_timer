@@ -36,5 +36,8 @@
         "comma-style": [2, "last"],
         // カンマ前後のスペースを許可（垂直方向に統一されたインデントを得るため）
         "comma-spacing": 0
+    },
+    "globals": {
+        "ons": false
     }
 }
