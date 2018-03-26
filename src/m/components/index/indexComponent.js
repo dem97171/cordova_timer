@@ -1,8 +1,10 @@
 const m = m || require("mithril");
 const view = require("./indexView.js");
+const model = require("./indexModel.js");
 
-const index = {};
+const indexComponent = {
+    view: view,
+    model: model
+};
 
-index.view = view;
-
-module.exports = index;
+module.exports = indexComponent;

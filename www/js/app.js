@@ -3,29 +3,131 @@
 
 var m = m || require("mithril");
 var view = require("./indexView.js");
+var model = require("./indexModel.js");
 
-var index = {};
+var indexComponent = {
+    view: view,
+    model: model
+};
 
-index.view = view;
+module.exports = indexComponent;
+},{"./indexModel.js":2,"./indexView.js":3,"mithril":9}],2:[function(require,module,exports){
+"use strict";
 
-module.exports = index;
-},{"./indexView.js":2,"mithril":4}],2:[function(require,module,exports){
+/*globals ons */
+var indexModel = {};
+
+indexModel.showToast = function () {
+    ons.notification.confirm({ title: "プログラミング難しい", message: "難しいよね？" });
+};
+
+module.exports = indexModel;
+},{}],3:[function(require,module,exports){
 "use strict";
 
 var m = m || require("mithril");
+// const indexModel = require("./indexModel.js");
+var menuComponent = require("../menu/menuComponent.js");
+var fn = require("../../modules/onsenFn.js");
 
 var view = function view() {
-    console.log("index view defined.");
     var content = m(
-        "div",
+        "ons-splitter",
         null,
-        "index content"
+        m(menuComponent),
+        m(
+            "ons-splitter-content",
+            { id: "content" },
+            m(
+                "ons-page",
+                null,
+                m(
+                    "ons-toolbar",
+                    null,
+                    m(
+                        "div",
+                        { "class": "left" },
+                        m(
+                            "ons-toolbar-button",
+                            { onclick: m.withAttr("value", fn.open) },
+                            m("ons-icon", { icon: "md-menu" })
+                        )
+                    ),
+                    m(
+                        "div",
+                        { "class": "center" },
+                        "Main"
+                    )
+                ),
+                m(
+                    "p",
+                    { style: "text-align: center; opacity: 0.6; padding-top: 20px;" },
+                    "Swipe right to open the menu!"
+                )
+            )
+        )
     );
     return content;
 };
 
 module.exports = view;
-},{"mithril":4}],3:[function(require,module,exports){
+},{"../../modules/onsenFn.js":8,"../menu/menuComponent.js":4,"mithril":9}],4:[function(require,module,exports){
+"use strict";
+
+var m = m || require("mithril");
+var view = require("./menuView.js");
+var model = require("./menuModel.js");
+
+var menuComponent = {
+    view: view,
+    model: model
+};
+
+module.exports = menuComponent;
+},{"./menuModel.js":5,"./menuView.js":6,"mithril":9}],5:[function(require,module,exports){
+"use strict";
+
+var menuModel = {};
+
+module.exports = menuModel;
+},{}],6:[function(require,module,exports){
+"use strict";
+
+var m = m || require("mithril");
+
+var view = function view() {
+    var content = m(
+        "ons-splitter-side",
+        { id: "menu", side: "left", width: "220px", collapse: true, swipeable: true },
+        m(
+            "ons-page",
+            null,
+            m(
+                "ons-list",
+                null,
+                m(
+                    "ons-list-item",
+                    { onclick: "fn.load('home.html')", tappable: true },
+                    "Home"
+                ),
+                m(
+                    "ons-list-item",
+                    { onclick: "fn.load('settings.html')", tappable: true },
+                    "Settings"
+                ),
+                m(
+                    "ons-list-item",
+                    { onclick: "fn.load('about.html')", tappable: true },
+                    "About"
+                )
+            )
+        )
+    );
+    return content;
+};
+
+module.exports = view;
+},{"mithril":9}],7:[function(require,module,exports){
 "use strict";
 
 console.log("loaded app.js");
@@ -61,7 +163,24 @@ var onDeviceReady = function onDeviceReady() {
 
     // document.body.addEventListener("click", y.Header.model.clearHeaderMenu ,false );
 };
-},{"../components/index/indexComponent.js":1,"mithril":4}],4:[function(require,module,exports){
+},{"../components/index/indexComponent.js":1,"mithril":9}],8:[function(require,module,exports){
+"use strict";
+
+// onsenUI splitter side menu functions
+var fn = {
+    open: function open() {
+        var menu = document.getElementById("menu");
+        menu.open();
+    },
+    load: function load(page) {
+        var content = document.getElementById("content");
+        var menu = document.getElementById("menu");
+        content.load(page).then(menu.close.bind(menu));
+    }
+};
+
+module.exports = fn;
+},{}],9:[function(require,module,exports){
 (function (global){
 ;(function() {
 "use strict"
@@ -1321,4 +1440,4 @@ if (typeof module !== "undefined") module["exports"] = m
 else window.m = m
 }());
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[3]);
+},{}]},{},[7]);
