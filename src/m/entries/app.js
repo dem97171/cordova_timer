@@ -7,10 +7,13 @@ window.onload = () => {
 };
 
 const onDeviceReady = () => {
+    const Timer = require("../modules/timer.js");
+    new Timer();
     // Now safe to use device APIs
     console.log("exec function onDeviceReady");
     // 初期処理
     console.log(event);
+    console.log(cordova.plugins.notification.local.getDefaults());
 
     const m = m || require("mithril");
     const indexComponent = require("../components/index/indexComponent.js");

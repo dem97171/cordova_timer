@@ -3,15 +3,15 @@
 
 var m = m || require("mithril");
 var view = require("./indexView.js");
-var model = require("./indexModel.js");
+// const model = require("./indexModel.js");
 
 var indexComponent = {
-    view: view,
-    model: model
+    view: view
+    // model: model
 };
 
 module.exports = indexComponent;
-},{"./indexModel.js":2,"./indexView.js":3,"mithril":9}],2:[function(require,module,exports){
+},{"./indexView.js":3,"mithril":10}],2:[function(require,module,exports){
 "use strict";
 
 /*globals ons */
@@ -21,12 +21,34 @@ indexModel.showToast = function () {
     ons.notification.confirm({ title: "プログラミング難しい", message: "難しいよね？" });
 };
 
+indexModel.push = {
+    browser: function browser() {
+        alert("browser alert");
+    },
+    Android: function Android() {
+        console.log("cordova plugin local notification scheduled.");
+        ons.notification.toast({ message: "1分後にスケジュールしました。", timeout: 1000 });
+        cordova.plugins.notification.local.schedule({
+            // trigger: { at: new Date(2018, 3, 27, 10, 59, 0) },
+            trigger: { in: 1, unit: "minute" },
+            foreground: true,
+            priority: 2,
+            text: "Test Message 1",
+            wakeup: true,
+            data: {
+                test: 1
+            },
+            actions: [{ id: "yes", title: "Yes" }, { id: "no", title: "No" }]
+        });
+    }
+};
+
 module.exports = indexModel;
 },{}],3:[function(require,module,exports){
 "use strict";
 
 var m = m || require("mithril");
-// const indexModel = require("./indexModel.js");
+var indexModel = require("./indexModel.js");
 var menuComponent = require("../menu/menuComponent.js");
 var fn = require("../../modules/onsenFn.js");
 
@@ -60,9 +82,67 @@ var view = function view() {
                     )
                 ),
                 m(
-                    "p",
-                    { style: "text-align: center; opacity: 0.6; padding-top: 20px;" },
-                    "Swipe right to open the menu!"
+                    "ons-select",
+                    { "class": "select" },
+                    m(
+                        "select",
+                        { "class": "select-input" },
+                        m(
+                            "option",
+                            { value: "1" },
+                            "1"
+                        ),
+                        m(
+                            "option",
+                            { value: "2" },
+                            "2"
+                        ),
+                        m(
+                            "option",
+                            { value: "3" },
+                            "3"
+                        ),
+                        m(
+                            "option",
+                            { value: "4" },
+                            "4"
+                        ),
+                        m(
+                            "option",
+                            { value: "5" },
+                            "5"
+                        ),
+                        m(
+                            "option",
+                            { value: "6" },
+                            "6"
+                        ),
+                        m(
+                            "option",
+                            { value: "7" },
+                            "7"
+                        ),
+                        m(
+                            "option",
+                            { value: "8" },
+                            "8"
+                        ),
+                        m(
+                            "option",
+                            { value: "9" },
+                            "9"
+                        ),
+                        m(
+                            "option",
+                            { value: "10" },
+                            "10"
+                        )
+                    )
+                ),
+                m(
+                    "ons-button",
+                    { modifier: "large", name: device.platform, onclick: m.withAttr("name", indexModel.push[device.platform]) },
+                    "large"
                 )
             )
         )
@@ -71,7 +151,7 @@ var view = function view() {
 };
 
 module.exports = view;
-},{"../../modules/onsenFn.js":8,"../menu/menuComponent.js":4,"mithril":9}],4:[function(require,module,exports){
+},{"../../modules/onsenFn.js":8,"../menu/menuComponent.js":4,"./indexModel.js":2,"mithril":10}],4:[function(require,module,exports){
 "use strict";
 
 var m = m || require("mithril");
@@ -84,7 +164,7 @@ var menuComponent = {
 };
 
 module.exports = menuComponent;
-},{"./menuModel.js":5,"./menuView.js":6,"mithril":9}],5:[function(require,module,exports){
+},{"./menuModel.js":5,"./menuView.js":6,"mithril":10}],5:[function(require,module,exports){
 "use strict";
 
 var menuModel = {};
@@ -127,7 +207,7 @@ var view = function view() {
 };
 
 module.exports = view;
-},{"mithril":9}],7:[function(require,module,exports){
+},{"mithril":10}],7:[function(require,module,exports){
 "use strict";
 
 console.log("loaded app.js");
@@ -137,10 +217,13 @@ window.onload = function () {
 };
 
 var onDeviceReady = function onDeviceReady() {
+    var Timer = require("../modules/timer.js");
+    new Timer();
     // Now safe to use device APIs
     console.log("exec function onDeviceReady");
     // 初期処理
     console.log(event);
+    console.log(cordova.plugins.notification.local.getDefaults());
 
     var m = m || require("mithril");
     var indexComponent = require("../components/index/indexComponent.js");
@@ -163,7 +246,7 @@ var onDeviceReady = function onDeviceReady() {
 
     // document.body.addEventListener("click", y.Header.model.clearHeaderMenu ,false );
 };
-},{"../components/index/indexComponent.js":1,"mithril":9}],8:[function(require,module,exports){
+},{"../components/index/indexComponent.js":1,"../modules/timer.js":9,"mithril":10}],8:[function(require,module,exports){
 "use strict";
 
 // onsenUI splitter side menu functions
@@ -181,6 +264,28 @@ var fn = {
 
 module.exports = fn;
 },{}],9:[function(require,module,exports){
+"use strict";
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// timer.js
+var timer = function timer() {
+    _classCallCheck(this, timer);
+
+    console.log("timer class initialized.");
+
+    // add evnet listener
+    cordova.plugins.notification.local.on("trigger", function (notification) {
+        console.log("triggered: " + notification.id);
+        ons.notification.alert({ message: "triggered: " + notification.id });
+    });
+    cordova.plugins.notification.local.on("schedule", function (notification) {
+        ons.notification.alert({ message: "scheduled: " + notification.id });
+    });
+};
+
+module.exports = timer;
+},{}],10:[function(require,module,exports){
 (function (global){
 ;(function() {
 "use strict"

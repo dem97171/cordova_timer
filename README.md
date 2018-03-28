@@ -3,6 +3,7 @@ git lfsを使用。
 
 ## cordova plugin
 * cordova-plugin-browsersync
+* cordova-plugin-local-notifications
 
 ## dev command
 ### デバッグ用のデバイスリスト一覧

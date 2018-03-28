@@ -1,0 +1,15 @@
+.drumroll{
+    display: block;
+    border: 1px solid #777777;
+    font-size: 1.4rem;
+    height: 3.0em;
+    overflow: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    li{
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+    }
+}

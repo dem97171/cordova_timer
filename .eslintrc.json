@@ -38,6 +38,8 @@
         "comma-spacing": 0
     },
     "globals": {
-        "ons": false
+        "ons": false,
+        "cordova": false,
+        "device": false
     }
 }

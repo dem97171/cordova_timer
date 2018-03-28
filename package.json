@@ -18,7 +18,8 @@
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-browsersync": {}
+      "cordova-plugin-browsersync": {},
+      "cordova-plugin-local-notification": {}
     },
     "platforms": [
       "android"

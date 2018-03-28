@@ -1,5 +1,5 @@
 const m = m || require("mithril");
-// const indexModel = require("./indexModel.js");
+const indexModel = require("./indexModel.js");
 const menuComponent = require("../menu/menuComponent.js");
 const fn = require("../../modules/onsenFn.js");
 
@@ -18,9 +18,21 @@ const view = () => {
                         Main
                     </div>
                 </ons-toolbar>
-                <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
-                Swipe right to open the menu!
-                </p>
+                <ons-select class="select">
+                    <select class="select-input">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </ons-select>
+                <ons-button modifier="large" name={device.platform} onclick={ m.withAttr("name", indexModel.push[device.platform]) }>large</ons-button>
             </ons-page>
         </ons-splitter-content>
     </ons-splitter>;
