@@ -15,7 +15,7 @@ indexModel.push = {
         cordova.plugins.notification.local.schedule(
             {
                 // trigger: { at: new Date(2018, 3, 27, 10, 59, 0) },
-                trigger: { in: 1, unit: "minute" },
+                trigger: { in: 5, unit: "second" },
                 foreground: true,
                 priority: 2,
                 text: "Test Message 1",

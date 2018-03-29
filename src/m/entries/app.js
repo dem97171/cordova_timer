@@ -7,6 +7,20 @@ window.onload = () => {
 };
 
 const onDeviceReady = () => {
+
+    // window.plugins.intent.getCordovaIntent(function (Intent) {
+    //     console.log(Intent);
+    // }, function () {
+    //     console.log('Error');
+    // });
+
+    // window.plugins.intent.setNewIntentHandler(function (intent) {
+    //     console.log("setNewIntentHandler");
+    //     console.log(intent);
+    // });
+
+
+
     const Timer = require("../modules/timer.js");
     new Timer();
     // Now safe to use device APIs

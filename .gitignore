@@ -1,8 +1,34 @@
 # cordova
 .DS_Store
 node_modules
-platforms
+platforms/browser
 plugins
 
 # dev
 compile
+
+# platform android
+platforms/android/*.iml
+platforms/android/.gradle
+platforms/android/local.properties
+platforms/android/.idea/workspace.xml
+platforms/android/.idea/libraries
+platforms/android/.DS_Store
+platforms/android/build
+platforms/android/captures
+platforms/android/*.apk
+platforms/android/*.ap_
+platforms/android/*.dex
+platforms/android/*.class
+platforms/android/bin/
+platforms/android/gen/
+platforms/android/local.properties
+platforms/android/.classpath
+platforms/android/.project
+platforms/android/proguard/
+platforms/android/*.ipr
+platforms/android/*.iws
+platforms/android/app/build/
+platforms/android/.idea/*.xml
+!platforms/android/.idea/gradle.xml
+!platforms/android/.idea/runConfigurations/*.xml

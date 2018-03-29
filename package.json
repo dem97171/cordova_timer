@@ -19,7 +19,10 @@
     "plugins": {
       "cordova-plugin-whitelist": {},
       "cordova-plugin-browsersync": {},
-      "cordova-plugin-local-notification": {}
+      "cordova-plugin-local-notification": {},
+      "cordova-toforeground": {},
+      "com.napolitano.cordova.plugin.intent": {},
+      "sevensky-cordova-plugin-intent": {}
     },
     "platforms": [
       "android"
