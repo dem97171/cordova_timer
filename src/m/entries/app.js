@@ -20,9 +20,6 @@ const onDeviceReady = () => {
     // });
 
 
-
-    const Timer = require("../modules/timer.js");
-    new Timer();
     // Now safe to use device APIs
     console.log("exec function onDeviceReady");
     // 初期処理
@@ -34,6 +31,17 @@ const onDeviceReady = () => {
     // var Main = Main || require("../modules/Main/entrypoint.js");
     // var AddParentCategory = AddParentCategory || require("../modules/AddParentCategory/entrypoint.js");
     // // require("../modules/helper/entrypoint.js");
+
+    // window.plugins.intent.getCordovaIntent(function (Intent) {
+    //     console.log("available intent");
+    //     console.log(Intent);
+    // }, function () {
+    //     console.log("Error");
+    // });
+
+    console.log("objectfromnative");
+    console.log(window.objectFromNative);
+
 
     // m.route.mode = "search";
     setTimeout(() => {

@@ -65,6 +65,14 @@ module.exports = [
     "clobbers": [
       "intentPlugin"
     ]
+  },
+  {
+    "id": "org.nypr.cordova.wakeupplugin.Wakeup",
+    "file": "plugins/org.nypr.cordova.wakeupplugin/www/wakeup.js",
+    "pluginId": "org.nypr.cordova.wakeupplugin",
+    "clobbers": [
+      "wakeuptimer"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -77,7 +85,8 @@ module.exports.metadata =
   "cordova-plugin-local-notification": "0.9.0-beta.2",
   "cordova-toforeground": "1.0.0",
   "com.napolitano.cordova.plugin.intent": "0.1.3",
-  "sevensky-cordova-plugin-intent": "1.0.6"
+  "sevensky-cordova-plugin-intent": "1.0.6",
+  "org.nypr.cordova.wakeupplugin": "0.1.0"
 };
 // BOTTOM OF METADATA
 });

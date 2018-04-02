@@ -26,25 +26,34 @@ indexModel.push = {
         alert("browser alert");
     },
     Android: function Android() {
-        console.log("cordova plugin local notification scheduled.");
-        ons.notification.toast({ message: "1分後にスケジュールしました。", timeout: 1000 });
-        cordova.plugins.notification.local.schedule({
-            // trigger: { at: new Date(2018, 3, 27, 10, 59, 0) },
-            trigger: { in: 5, unit: "second" },
-            foreground: true,
-            priority: 2,
-            text: "Test Message 1",
-            wakeup: true,
-            data: {
-                test: 1
-            },
-            actions: [{ id: "yes", title: "Yes" }, { id: "no", title: "No" }]
-        });
+        var Timer = require("../../modules/timer.js");
+        var timer = new Timer();
+        timer.wakeupOnetime();
+
+        // console.log("cordova plugin local notification scheduled.");
+        // ons.notification.toast({message: "1分後にスケジュールしました。", timeout: 1000});
+        // cordova.plugins.notification.local.schedule(
+        //     {
+        //         // trigger: { at: new Date(2018, 3, 27, 10, 59, 0) },
+        //         trigger: { in: 5, unit: "second" },
+        //         foreground: true,
+        //         priority: 2,
+        //         text: "Test Message 1",
+        //         wakeup: true,
+        //         data: {
+        //             test: 1
+        //         },
+        //         actions: [
+        //             { id: "yes", title: "Yes" },
+        //             { id: "no",  title: "No" }
+        //         ]
+        //     });
     }
+
 };
 
 module.exports = indexModel;
-},{}],3:[function(require,module,exports){
+},{"../../modules/timer.js":9}],3:[function(require,module,exports){
 "use strict";
 
 var m = m || require("mithril");
@@ -230,8 +239,6 @@ var onDeviceReady = function onDeviceReady() {
     // });
 
 
-    var Timer = require("../modules/timer.js");
-    new Timer();
     // Now safe to use device APIs
     console.log("exec function onDeviceReady");
     // 初期処理
@@ -243,6 +250,16 @@ var onDeviceReady = function onDeviceReady() {
     // var Main = Main || require("../modules/Main/entrypoint.js");
     // var AddParentCategory = AddParentCategory || require("../modules/AddParentCategory/entrypoint.js");
     // // require("../modules/helper/entrypoint.js");
+
+    // window.plugins.intent.getCordovaIntent(function (Intent) {
+    //     console.log("available intent");
+    //     console.log(Intent);
+    // }, function () {
+    //     console.log("Error");
+    // });
+
+    console.log("objectfromnative");
+    console.log(window.objectFromNative);
 
     // m.route.mode = "search";
     setTimeout(function () {
@@ -259,7 +276,7 @@ var onDeviceReady = function onDeviceReady() {
 
     // document.body.addEventListener("click", y.Header.model.clearHeaderMenu ,false );
 };
-},{"../components/index/indexComponent.js":1,"../modules/timer.js":9,"mithril":10}],8:[function(require,module,exports){
+},{"../components/index/indexComponent.js":1,"mithril":10}],8:[function(require,module,exports){
 "use strict";
 
 // onsenUI splitter side menu functions
@@ -294,9 +311,9 @@ var timer = function () {
         cordova.plugins.notification.local.on("trigger", function (notification) {
             // window.open("cordova_timer://", "_system");
             console.log("triggered: " + notification.id);
-            intentPlugin.startActivity("org.apache.cordova.cordova_timer", "MainActivity", JSON.stringify({ name: "namepara" }));
-            ons.notification.alert({ message: "triggered: " + notification.id });
-            toForeground("MainActivity", "org.apache.cordova.cordova_timer", this.successFunction, this.errorFunction);
+            // intentPlugin.startActivity("org.apache.cordova.cordova_timer", "MainActivity", JSON.stringify({name:"namepara"}));
+            // ons.notification.alert({message: "triggered: " + notification.id});
+            // toForeground("MainActivity", "org.apache.cordova.cordova_timer", this.successFunction, this.errorFunction);
         });
         cordova.plugins.notification.local.on("schedule", function (notification) {
             ons.notification.alert({ message: "scheduled: " + notification.id });
@@ -310,8 +327,27 @@ var timer = function () {
         }
     }, {
         key: "errorFunction",
-        value: function errorFunction() {
+        value: function errorFunction(err) {
             console.log("failed to foreground.");
+            console.log(err);
+        }
+
+        // wakeup timer test
+
+    }, {
+        key: "wakeupOnetime",
+        value: function wakeupOnetime() {
+            // set wakeup timer
+            var d = new Date();
+            d.setTime(d.getTime() + 1 * 60 * 1000); // set the alarm for two minutes prior to the current time on the next day
+            window.wakeuptimer.wakeup(this.successFunction, this.errorFunction, {
+                alarms: [{
+                    type: "onetime",
+                    time: { hour: d.getHours(), minute: d.getMinutes(), second: d.getSeconds() },
+                    extra: { message: "json containing app-specific information to be posted when alarm triggers" },
+                    message: 'Alarm has expired!'
+                }]
+            });
         }
     }]);
 

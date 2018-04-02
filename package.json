@@ -22,7 +22,8 @@
       "cordova-plugin-local-notification": {},
       "cordova-toforeground": {},
       "com.napolitano.cordova.plugin.intent": {},
-      "sevensky-cordova-plugin-intent": {}
+      "sevensky-cordova-plugin-intent": {},
+      "org.nypr.cordova.wakeupplugin": {}
     },
     "platforms": [
       "android"

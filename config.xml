@@ -28,5 +28,6 @@
     <plugin name="cordova-toforeground" spec="https://github.com/ctssoftware/cordova-toforeground" />
     <plugin name="com.napolitano.cordova.plugin.intent" spec="https://github.com/napolitano/cordova-plugin-intent" />
     <plugin name="sevensky-cordova-plugin-intent" spec="^1.0.6" />
+    <plugin name="org.nypr.cordova.wakeupplugin" spec="https://github.com/Haggus/cordova-plugin-wakeuptimer.git" />
     <engine name="android" spec="^7.0.0" />
 </widget>

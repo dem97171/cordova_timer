@@ -22,6 +22,10 @@
     <feature name="IntentPlugin">
         <param name="android-package" value="sevensky.cordova.plugins.IntentPlugin" />
     </feature>
+    <feature name="WakeupPlugin">
+        <param name="android-package" value="org.nypr.cordova.wakeupplugin.WakeupPlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <name>cordova_timer</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

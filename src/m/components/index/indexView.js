@@ -32,7 +32,9 @@ const view = () => {
                         <option value="10">10</option>
                     </select>
                 </ons-select>
-                <ons-button modifier="large" name={device.platform} onclick={ m.withAttr("name", indexModel.push[device.platform]) }>large</ons-button>
+                <ons-button modifier="large" name={device.platform} onclick={ m.withAttr("name", indexModel.push[device.platform]) }>
+                    large
+                </ons-button>
             </ons-page>
         </ons-splitter-content>
     </ons-splitter>;
