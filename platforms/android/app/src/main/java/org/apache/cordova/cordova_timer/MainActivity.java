@@ -20,22 +20,40 @@
 package org.apache.cordova.cordova_timer;
 
 import android.os.Bundle;
+import android.webkit.WebView;
 import org.apache.cordova.*;
+import org.apache.cordova.engine.SystemWebView;
+import org.apache.cordova.engine.SystemWebViewClient;
+import org.apache.cordova.engine.SystemWebViewEngine;
 
 public class MainActivity extends CordovaActivity
 {
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // enable Cordova apps to be started in the background
-        Bundle extras = getIntent().getExtras();
-        if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
-            moveTaskToBack(true);
-        }
+        super.init();
+        appView.loadUrl(launchUrl);
 
-        // Set by <content src="index.html" /> in config.xml
-        loadUrl(launchUrl);
+        SystemWebView wv = (SystemWebView)appView.getView();
+        wv.setWebViewClient(new SystemWebViewClient((SystemWebViewEngine)appView.getEngine()){
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+
+                Bundle extras = getIntent().getExtras();
+                if (extras != null && "" != extras.getString("extra", "")) {
+                    view.loadUrl("javascript:window.objectFromNative=" + extras.getString("extra", ""));
+                }
+            }
+        });
+
+
+        // enable Cordova apps to be started in the background
+//        Bundle extras = getIntent().getExtras();
+//        if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
+//            moveTaskToBack(true);
+//        }
     }
 }
