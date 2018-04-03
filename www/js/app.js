@@ -61,6 +61,58 @@ var indexModel = require("./indexModel.js");
 var menuComponent = require("../menu/menuComponent.js");
 var fn = require("../../modules/onsenFn.js");
 
+var mainContent = {
+    view: function view() {
+        var content = m(
+            "div",
+            { className: "l-content" },
+            m(
+                "div",
+                { className: "index_view" },
+                m(
+                    "div",
+                    { className: "index_view-time" },
+                    "2m30h"
+                ),
+                m(
+                    "div",
+                    { className: "index_view-set" },
+                    m(
+                        "div",
+                        { className: "index_view-set_count" },
+                        "4",
+                        m(
+                            "span",
+                            { className: "index_view-set_unit" },
+                            "set"
+                        )
+                    ),
+                    m(
+                        "div",
+                        { className: "index_view-set_up" },
+                        "\u25B3"
+                    ),
+                    m(
+                        "div",
+                        { className: "index_view-set_down" },
+                        "\u25BD"
+                    )
+                ),
+                m(
+                    "div",
+                    { className: "index_view-start_button" },
+                    m(
+                        "ons-button",
+                        { modifier: "large", name: device.platform, onclick: m.withAttr("name", indexModel.push[device.platform]) },
+                        "START"
+                    )
+                )
+            )
+        );
+        return content;
+    }
+};
+
 var view = function view() {
     var content = m(
         "ons-splitter",
@@ -90,69 +142,7 @@ var view = function view() {
                         "Main"
                     )
                 ),
-                m(
-                    "ons-select",
-                    { "class": "select" },
-                    m(
-                        "select",
-                        { "class": "select-input" },
-                        m(
-                            "option",
-                            { value: "1" },
-                            "1"
-                        ),
-                        m(
-                            "option",
-                            { value: "2" },
-                            "2"
-                        ),
-                        m(
-                            "option",
-                            { value: "3" },
-                            "3"
-                        ),
-                        m(
-                            "option",
-                            { value: "4" },
-                            "4"
-                        ),
-                        m(
-                            "option",
-                            { value: "5" },
-                            "5"
-                        ),
-                        m(
-                            "option",
-                            { value: "6" },
-                            "6"
-                        ),
-                        m(
-                            "option",
-                            { value: "7" },
-                            "7"
-                        ),
-                        m(
-                            "option",
-                            { value: "8" },
-                            "8"
-                        ),
-                        m(
-                            "option",
-                            { value: "9" },
-                            "9"
-                        ),
-                        m(
-                            "option",
-                            { value: "10" },
-                            "10"
-                        )
-                    )
-                ),
-                m(
-                    "ons-button",
-                    { modifier: "large", name: device.platform, onclick: m.withAttr("name", indexModel.push[device.platform]) },
-                    "large"
-                )
+                m(mainContent)
             )
         )
     );

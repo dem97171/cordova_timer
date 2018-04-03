@@ -3,6 +3,36 @@ const indexModel = require("./indexModel.js");
 const menuComponent = require("../menu/menuComponent.js");
 const fn = require("../../modules/onsenFn.js");
 
+const mainContent = {
+    view: () => {
+        const content = <div className="l-content">
+            <div className="index_view">
+                <div className="index_view-time">
+                    2m30h
+                </div>
+                <div className="index_view-set">
+                    <div className="index_view-set_count">
+                        4
+                        <span className="index_view-set_unit">set</span>
+                    </div>
+                    <div className="index_view-set_up">
+                        △
+                    </div>
+                    <div className="index_view-set_down">
+                        ▽
+                    </div>
+                </div>
+                <div className="index_view-start_button">
+                    <ons-button modifier="large" name={device.platform} onclick={ m.withAttr("name", indexModel.push[device.platform]) }>
+                        START
+                    </ons-button>
+                </div>
+            </div>
+        </div>;
+        return content;
+    }
+};
+
 const view = () => {
     const content = <ons-splitter>
         { m(menuComponent) }
@@ -18,23 +48,7 @@ const view = () => {
                         Main
                     </div>
                 </ons-toolbar>
-                <ons-select class="select">
-                    <select class="select-input">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                    </select>
-                </ons-select>
-                <ons-button modifier="large" name={device.platform} onclick={ m.withAttr("name", indexModel.push[device.platform]) }>
-                    large
-                </ons-button>
+                { m(mainContent) }
             </ons-page>
         </ons-splitter-content>
     </ons-splitter>;
