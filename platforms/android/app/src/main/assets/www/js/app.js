@@ -187,7 +187,7 @@ var m = m || require("mithril");
 var view = function view() {
     var content = m(
         "ons-splitter-side",
-        { id: "menu", side: "left", width: "220px", collapse: true, swipeable: true },
+        { id: "menu", side: "left", width: "220px", "swipe-target-width": "40px", collapse: true, swipeable: true },
         m(
             "ons-page",
             null,
