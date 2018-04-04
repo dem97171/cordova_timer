@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Oswald-Regular";
-  src: url(/fonts/Oswald/Oswald-Regular.ttf); }
+  font-family: 'Oswald-Regular';
+  src: url("./fonts/Oswald/Oswald-Regular.ttf") format("truetype"); }
 
 .l-content {
   padding: 0px 10px;
@@ -62,7 +62,7 @@
     top: 70%; }
 
 .timer_view {
-  font-family: Oswald-Regular; }
+  font-family: "Oswald-Regular"; }
   .timer_view .timer_view-round_wrapper {
     letter-spacing: 0.1em;
     text-align: right;
