@@ -1,7 +1,7 @@
 const m = m || require("mithril");
 
 const view = () => {
-    const content = <ons-splitter-side id="menu" side="left" width="220px" swipe-target-width="40px" collapse swipeable>
+    const content = <ons-splitter-side id="menu" side="left" width="90%" open-threshold="0.2" swipe-target-width="40px" collapse swipeable>
         <ons-page>
             <ons-list>
                 <ons-list-item onclick="fn.load('home.html')" tappable>
