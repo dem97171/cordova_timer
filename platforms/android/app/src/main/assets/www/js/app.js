@@ -11,10 +11,12 @@ var indexComponent = {
 };
 
 module.exports = indexComponent;
-},{"./indexView.js":3,"mithril":10}],2:[function(require,module,exports){
+},{"./indexView.js":3,"mithril":13}],2:[function(require,module,exports){
 "use strict";
 
 /*globals ons */
+
+var m = m || require("mithril");
 var indexModel = {};
 
 indexModel.showToast = function () {
@@ -52,8 +54,17 @@ indexModel.push = {
 
 };
 
+indexModel.timerStart = {
+
+    // タイマースタートした時の動作
+    "work": function work() {
+        m.route.set("/timer");
+        return true;
+    }
+};
+
 module.exports = indexModel;
-},{"../../modules/timer.js":9}],3:[function(require,module,exports){
+},{"../../modules/timer.js":12,"mithril":13}],3:[function(require,module,exports){
 "use strict";
 
 var m = m || require("mithril");
@@ -103,7 +114,7 @@ var mainContent = {
                     { className: "index_view-start_button" },
                     m(
                         "ons-button",
-                        { modifier: "large", name: device.platform, onclick: m.withAttr("name", indexModel.push[device.platform]) },
+                        { modifier: "large", name: device.platform, onclick: m.withAttr("name", indexModel.timerStart["work"]) },
                         "START"
                     )
                 )
@@ -150,7 +161,7 @@ var view = function view() {
 };
 
 module.exports = view;
-},{"../../modules/onsenFn.js":8,"../menu/menuComponent.js":4,"./indexModel.js":2,"mithril":10}],4:[function(require,module,exports){
+},{"../../modules/onsenFn.js":11,"../menu/menuComponent.js":4,"./indexModel.js":2,"mithril":13}],4:[function(require,module,exports){
 "use strict";
 
 var m = m || require("mithril");
@@ -163,7 +174,7 @@ var menuComponent = {
 };
 
 module.exports = menuComponent;
-},{"./menuModel.js":5,"./menuView.js":6,"mithril":10}],5:[function(require,module,exports){
+},{"./menuModel.js":5,"./menuView.js":6,"mithril":13}],5:[function(require,module,exports){
 "use strict";
 
 var menuModel = {};
@@ -206,7 +217,178 @@ var view = function view() {
 };
 
 module.exports = view;
-},{"mithril":10}],7:[function(require,module,exports){
+},{"mithril":13}],7:[function(require,module,exports){
+"use strict";
+
+var m = m || require("mithril");
+var view = require("./timerView.js");
+// const model = require("./timerModel.js");
+
+var timerComponent = {
+    view: view
+    // model: model
+};
+
+module.exports = timerComponent;
+},{"./timerView.js":9,"mithril":13}],8:[function(require,module,exports){
+"use strict";
+
+/*globals ons */
+var timerModel = {};
+
+module.exports = timerModel;
+},{}],9:[function(require,module,exports){
+"use strict";
+
+var m = m || require("mithril");
+var timerModel = require("./timerModel.js");
+var menuComponent = require("../menu/menuComponent.js");
+var fn = require("../../modules/onsenFn.js");
+
+var mainContent = {
+    view: function view() {
+        var content = m(
+            "div",
+            { className: "l-content" },
+            m(
+                "div",
+                { className: "timer_view" },
+                m(
+                    "div",
+                    { className: "timer_view-round_wrapper" },
+                    m(
+                        "span",
+                        { className: "timer_view-round_count" },
+                        "1/4"
+                    ),
+                    m(
+                        "span",
+                        { className: "timer_view-round_unit" },
+                        "set"
+                    )
+                ),
+                m(
+                    "div",
+                    { className: "timer_view-status_wrapper" },
+                    m(
+                        "ul",
+                        { className: "timer_view-status_list_wrapper" },
+                        m(
+                            "li",
+                            { className: "timer_view-status_list timer_view-status_list_active" },
+                            "work"
+                        ),
+                        m(
+                            "li",
+                            { className: "timer_view-status_list" },
+                            "break"
+                        ),
+                        m(
+                            "li",
+                            { className: "timer_view-status_list" },
+                            "rest"
+                        )
+                    ),
+                    m(
+                        "div",
+                        { className: "tiemr_view-status" },
+                        "work"
+                    ),
+                    m(
+                        "div",
+                        { className: "timer_view-countdown_wrapper" },
+                        m(
+                            "span",
+                            { className: "timer_view-countdown" },
+                            "22"
+                        ),
+                        m(
+                            "span",
+                            { className: "timer_view-countdown_unit" },
+                            "m"
+                        ),
+                        m(
+                            "span",
+                            { className: "timer_view-countdown" },
+                            "09"
+                        ),
+                        m(
+                            "span",
+                            { className: "timer_view-countdown_unit" },
+                            "s"
+                        )
+                    )
+                ),
+                m(
+                    "div",
+                    { className: "timer_view-button_area" },
+                    m(
+                        "ul",
+                        { className: "timer_view-button_wrapper" },
+                        m(
+                            "li",
+                            { className: "timer_view-button" },
+                            m(
+                                "button",
+                                { className: "button button--large" },
+                                "pause"
+                            )
+                        ),
+                        m(
+                            "li",
+                            { className: "timer_view-button" },
+                            m(
+                                "button",
+                                { className: "button button--large button--light" },
+                                "reset"
+                            )
+                        )
+                    )
+                )
+            )
+        );
+        return content;
+    }
+};
+
+var view = function view() {
+    var content = m(
+        "ons-splitter",
+        null,
+        m(menuComponent),
+        m(
+            "ons-splitter-content",
+            { id: "content" },
+            m(
+                "ons-page",
+                null,
+                m(
+                    "ons-toolbar",
+                    null,
+                    m(
+                        "div",
+                        { "class": "left" },
+                        m(
+                            "ons-toolbar-button",
+                            { onclick: m.withAttr("value", fn.open) },
+                            m("ons-icon", { icon: "md-menu" })
+                        )
+                    ),
+                    m(
+                        "div",
+                        { "class": "center" },
+                        "Main"
+                    )
+                ),
+                m(mainContent)
+            )
+        )
+    );
+    return content;
+};
+
+module.exports = view;
+},{"../../modules/onsenFn.js":11,"../menu/menuComponent.js":4,"./timerModel.js":8,"mithril":13}],10:[function(require,module,exports){
 "use strict";
 
 console.log("loaded app.js");
@@ -237,6 +419,7 @@ var onDeviceReady = function onDeviceReady() {
 
     var m = m || require("mithril");
     var indexComponent = require("../components/index/indexComponent.js");
+    var timerComponent = require("../components/timer/timerComponent.js");
     // var Main = Main || require("../modules/Main/entrypoint.js");
     // var AddParentCategory = AddParentCategory || require("../modules/AddParentCategory/entrypoint.js");
     // // require("../modules/helper/entrypoint.js");
@@ -254,19 +437,20 @@ var onDeviceReady = function onDeviceReady() {
     // m.route.mode = "search";
     setTimeout(function () {
         m.route(document.body, "/", {
-            "/": indexComponent
+            "/": indexComponent,
+            "/timer": timerComponent
             //         "/parent_category/add": AddParentCategory
             //         // "/server": y.ServerList,
             //         // "/StockPortfolio": y.StockPortfolio,
             //         // "/server/add": y.ServerAdd
         });
-    }, 2000);
+    }, 1000);
 
     // y.global.init();
 
     // document.body.addEventListener("click", y.Header.model.clearHeaderMenu ,false );
 };
-},{"../components/index/indexComponent.js":1,"mithril":10}],8:[function(require,module,exports){
+},{"../components/index/indexComponent.js":1,"../components/timer/timerComponent.js":7,"mithril":13}],11:[function(require,module,exports){
 "use strict";
 
 // onsenUI splitter side menu functions
@@ -283,7 +467,7 @@ var fn = {
 };
 
 module.exports = fn;
-},{}],9:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -345,7 +529,7 @@ var timer = function () {
 }();
 
 module.exports = timer;
-},{}],10:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (global){
 ;(function() {
 "use strict"
@@ -1605,4 +1789,4 @@ if (typeof module !== "undefined") module["exports"] = m
 else window.m = m
 }());
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}]},{},[7]);
+},{}]},{},[10]);

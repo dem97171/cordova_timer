@@ -1,4 +1,6 @@
 /*globals ons */
+
+const m = m || require("mithril");
 const indexModel = {};
 
 indexModel.showToast = () => {
@@ -34,6 +36,16 @@ indexModel.push = {
         //     });
     }
     
+};
+
+
+indexModel.timerStart = {
+
+    // タイマースタートした時の動作
+    "work": () => {
+        m.route.set("/timer");
+        return true;
+    }
 };
 
 module.exports = indexModel;

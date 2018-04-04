@@ -23,7 +23,7 @@ const mainContent = {
                     </div>
                 </div>
                 <div className="index_view-start_button">
-                    <ons-button modifier="large" name={device.platform} onclick={ m.withAttr("name", indexModel.push[device.platform]) }>
+                    <ons-button modifier="large" name={device.platform} onclick={ m.withAttr("name", indexModel.timerStart["work"]) }>
                         START
                     </ons-button>
                 </div>

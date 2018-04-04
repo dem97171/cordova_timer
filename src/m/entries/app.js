@@ -28,6 +28,7 @@ const onDeviceReady = () => {
 
     const m = m || require("mithril");
     const indexComponent = require("../components/index/indexComponent.js");
+    const timerComponent = require("../components/timer/timerComponent.js");
     // var Main = Main || require("../modules/Main/entrypoint.js");
     // var AddParentCategory = AddParentCategory || require("../modules/AddParentCategory/entrypoint.js");
     // // require("../modules/helper/entrypoint.js");
@@ -49,14 +50,15 @@ const onDeviceReady = () => {
             document.body,
             "/",
             {
-                "/": indexComponent
+                "/": indexComponent,
+                "/timer": timerComponent
                 //         "/parent_category/add": AddParentCategory
                 //         // "/server": y.ServerList,
                 //         // "/StockPortfolio": y.StockPortfolio,
                 //         // "/server/add": y.ServerAdd
             }
         );
-    }, 2000);
+    }, 1000);
 
     // y.global.init();
 
