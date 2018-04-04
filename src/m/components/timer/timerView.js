@@ -34,10 +34,10 @@ const mainContent = {
                 <div className="timer_view-button_area">
                     <ul className="timer_view-button_wrapper">
                         <li className="timer_view-button">
-                            <button className="button button--large">pause</button>
+                            <ons-button modifier="large" ripple>pause</ons-button>
                         </li>
                         <li className="timer_view-button">
-                            <button className="button button--large button--light">reset</button>
+                            <ons-button modifier="large light" ripple>reset</ons-button>
                         </li>
                     </ul>
                 </div>

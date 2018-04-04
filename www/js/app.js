@@ -329,8 +329,8 @@ var mainContent = {
                             "li",
                             { className: "timer_view-button" },
                             m(
-                                "button",
-                                { className: "button button--large" },
+                                "ons-button",
+                                { modifier: "large", ripple: true },
                                 "pause"
                             )
                         ),
@@ -338,8 +338,8 @@ var mainContent = {
                             "li",
                             { className: "timer_view-button" },
                             m(
-                                "button",
-                                { className: "button button--large button--light" },
+                                "ons-button",
+                                { modifier: "large light", ripple: true },
                                 "reset"
                             )
                         )
